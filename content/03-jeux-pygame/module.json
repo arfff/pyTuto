@@ -1,0 +1,6 @@
+{
+  "title": "Crée tes jeux avec pygame",
+  "icon": "🎮",
+  "description": "Ouvre une fenêtre de jeu, déplace un sprite avec les flèches et crée un jeu où il faut attraper des pommes.",
+  "mode": "pygame"
+}

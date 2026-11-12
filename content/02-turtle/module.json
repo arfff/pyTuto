@@ -1,0 +1,6 @@
+{
+  "title": "Dessiner avec la tortue (turtle)",
+  "icon": "🐢",
+  "description": "Comme l'extension Pen de Scratch : fais avancer et tourner un sprite qui dessine des formes, des spirales et des motifs. À faire après les leçons « Les boucles » du module Bases.",
+  "mode": "turtle"
+}
