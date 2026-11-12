@@ -72,6 +72,8 @@ a { color: var(--green-dark); }
 .console .hint { color: var(--muted); font-style: italic; font-family: inherit; }
 .console .line { white-space: pre-wrap; word-break: break-word; }
 .console .stderr { color: var(--danger); }
+.console .success { color: #1f9d55; font-weight: 600; }
+.console .warn { color: #c77700; }
 .console .info { color: var(--muted); }
 .console .input { color: var(--green-dark); }
 .input-line { display: flex; gap: 0.3rem; }

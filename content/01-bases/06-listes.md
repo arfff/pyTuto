@@ -55,6 +55,15 @@ print(max(notes))                # la plus grande
 > 3. Avec `random.choice(liste)`, fais un programme qui choisit un fruit au hasard.
 > 4. Défi : demande à l'utilisateur 3 prénoms avec `input`, range-les dans une liste, puis affiche-les triés avec `sorted(prenoms)`.
 
+## 🏁 Défi à valider
+
+Crée une liste `carres` qui contient les carrés des nombres de 1 à 5 : `[1, 4, 9, 16, 25]`. Tu peux utiliser une boucle et `append`. Puis exécute : le site vérifie ta réponse.
+
+```check
+assert "carres" in globals(), "Crée une liste nommée carres."
+assert carres == [1, 4, 9, 16, 25], "La liste doit valoir [1, 4, 9, 16, 25]."
+```
+
 ```starter
 fruits = ["pomme", "banane", "cerise"]
 

@@ -22,6 +22,12 @@ function parseLesson(raw, moduleId, fileName) {
     starter = code.replace(/\s+$/, '') + '\n'
     return ''
   })
+  // Le bloc ```check ... ``` (facultatif) valide l'exercice : voir python-worker.js (runCheck)
+  let check = ''
+  body = body.replace(/```check\r?\n([\s\S]*?)```\r?\n?/, (_, code) => {
+    check = code
+    return ''
+  })
   const slug = fileName.replace(/\.md$/, '')
   return {
     id: `${moduleId}/${slug}`,
@@ -29,6 +35,7 @@ function parseLesson(raw, moduleId, fileName) {
     slug,
     title: meta.title || slug,
     starter,
+    check,
     html: marked.parse(body),
   }
 }

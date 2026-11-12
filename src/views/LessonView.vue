@@ -31,6 +31,15 @@ const runner = createRunner({
   mode: mod.value?.mode,
   getCanvas: () => canvasEl.value,
   onDraw: (ops) => renderer?.draw(ops),
+  onCheck: (ok, hint) => {
+    if (ok) {
+      lines.value.push({ kind: 'success', text: '✅ Défi réussi, bravo !' })
+      markDone(lesson.value.id)
+      done.value = new Set(getDone())
+    } else {
+      lines.value.push({ kind: 'warn', text: '💡 Pas encore : ' + hint })
+    }
+  },
   onOutput: (kind, text) => lines.value.push({ kind, text }),
   onInputRequest: (p) => { inputPrompt.value = p; waitingInput.value = true },
   onState: (s) => { state.value = s; if (s !== 'running') waitingInput.value = false },
@@ -48,7 +57,7 @@ watch(code, (c) => lesson.value && saveCode(lesson.value.id, c))
 function run() {
   lines.value = []
   renderer?.reset()
-  runner.run(code.value)
+  runner.run(code.value, lesson.value.check)
 }
 function stop() {
   renderer?.clearQueue()

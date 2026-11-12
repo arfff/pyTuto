@@ -1,7 +1,7 @@
 import { createPygameRunner } from './pygameRunner'
 
 // Pilote le worker Python. États : 'loading' | 'ready' | 'running'
-function createConsoleRunner({ onOutput, onInputRequest, onState, onDraw }) {
+function createConsoleRunner({ onOutput, onInputRequest, onState, onDraw, onCheck }) {
   let worker = null
   let sab = null
   let flag = null
@@ -31,16 +31,17 @@ function createConsoleRunner({ onOutput, onInputRequest, onState, onDraw }) {
       else if (m.type === 'stderr') onOutput('stderr', m.text)
       else if (m.type === 'input') onInputRequest(m.prompt)
       else if (m.type === 'draw') onDraw?.(m.ops)
+      else if (m.type === 'check') onCheck?.(m.ok, m.hint)
     }
     worker.postMessage({ type: 'init', sab })
   }
 
   return {
     start,
-    run(code) {
+    run(code, check) {
       if (state !== 'ready') return
       setState('running')
-      worker.postMessage({ type: 'run', code })
+      worker.postMessage({ type: 'run', code, check })
     },
     stop() {
       if (!worker) return

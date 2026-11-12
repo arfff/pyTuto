@@ -6,6 +6,7 @@ let pyodide = null
 let flag = null // Int32Array [0]=état (0 attente, 1 réponse prête), [1]=longueur
 let data = null // Uint8Array : texte saisi par l'utilisateur
 let canBlock = false
+let outputLines = [] // sortie du programme, utilisée par les validations d'exercices
 
 function readInput(prompt) {
   if (!canBlock) {
@@ -36,7 +37,12 @@ async function init(sab) {
     canBlock = true
   }
   pyodide = await loadPyodide()
-  pyodide.setStdout({ batched: (text) => postMessage({ type: 'stdout', text }) })
+  pyodide.setStdout({
+    batched: (text) => {
+      outputLines.push(text)
+      postMessage({ type: 'stdout', text })
+    },
+  })
   pyodide.setStderr({ batched: (text) => postMessage({ type: 'stderr', text }) })
   pyodide.globals.set('_js_input', readInput)
   pyodide.runPython(`
@@ -65,16 +71,37 @@ sys.modules["turtle"] = _m
 const TURTLE_CALL = (fn) =>
   `import sys\n_t = sys.modules.get("turtle")\nif _t:\n    _t.${fn}()`
 
-async function run(code) {
+// Validation d'un exercice : le code `check` de la leçon s'exécute dans l'espace de noms du
+// programme de l'élève (ses variables sont visibles) ; `output` contient ce qu'il a affiché.
+// Un `assert condition, "indice"` qui échoue produit le message d'aide.
+function runCheck(g, check) {
+  g.set('output', outputLines.join('\n'))
+  try {
+    pyodide.runPython(check, { globals: g })
+    postMessage({ type: 'check', ok: true })
+  } catch (err) {
+    const last = String(err.message || err).trim().split('\n').pop()
+    const hint = last.startsWith('AssertionError')
+      ? last.replace(/^AssertionError:?\s*/, '')
+      : 'Il manque quelque chose pour valider : ' + last
+    postMessage({ type: 'check', ok: false, hint })
+  }
+}
+
+async function run(code, check) {
   const g = pyodide.runPython('dict(__name__="__main__")')
   pyodide.runPython(TURTLE_CALL('_reset_all'))
+  outputLines = []
+  let success = true
   try {
     await pyodide.loadPackagesFromImports(code)
     await pyodide.runPythonAsync(code, { globals: g })
   } catch (err) {
+    success = false
     postMessage({ type: 'stderr', text: cleanTraceback(String(err.message || err)) })
   } finally {
     try { pyodide.runPython(TURTLE_CALL('_flush')) } catch (e) { /* rien */ }
+    if (success && check) runCheck(g, check)
     g.destroy()
     postMessage({ type: 'done' })
   }
@@ -83,5 +110,5 @@ async function run(code) {
 onmessage = (e) => {
   const m = e.data
   if (m.type === 'init') init(m.sab)
-  else if (m.type === 'run') run(m.code)
+  else if (m.type === 'run') run(m.code, m.check)
 }

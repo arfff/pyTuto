@@ -26,6 +26,8 @@ content/
 - Les dossiers et fichiers sont classés par ordre alphabétique : préfixe-les par un numéro.
 - `module.json` : `title`, `icon`, `description` et `mode` (`console`, `turtle` ou `pygame`).
 - Une leçon est un fichier Markdown avec un en-tête `title:`. Le code de départ de l'éditeur est placé dans un bloc ` ```starter `.
+- Un bloc ` ```check ` (facultatif, modules `console` et `turtle`) valide un défi : c'est du Python exécuté après le programme de l'élève, dans le même espace de noms (ses variables sont visibles, `output` contient ce qu'il a affiché). Un `assert condition, "indice"` qui échoue affiche l'indice.
+- Les dossiers sont triés par nom : `01b-projets-console` passe entre `01-bases` et `02-turtle`.
 
 ## Déployer sur GitHub Pages
 

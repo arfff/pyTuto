@@ -35,6 +35,14 @@ print(10 * 4)
 > 2. Ajoute une deuxième ligne `print` avec un message de ton choix.
 > 3. Affiche le résultat de `7 * 6`.
 
+## 🏁 Défi à valider
+
+Affiche exactement la phrase `Je code en Python !` avec un `print`. Puis exécute : le site vérifie ta réponse.
+
+```check
+assert "Je code en Python !" in output.splitlines(), "Affiche exactement : Je code en Python !"
+```
+
 ```starter
 print("Hello World!")
 ```

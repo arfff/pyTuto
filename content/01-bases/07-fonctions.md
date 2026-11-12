@@ -58,6 +58,17 @@ Une fonction doit être définie **avant** de l'appeler (donc plus haut dans le 
 > 3. Écris une fonction `est_pair(n)` qui renvoie `True` si `n` est pair (indice : `n % 2 == 0`).
 > 4. Défi : écris une fonction `table(n)` qui affiche la table de multiplication de `n` (avec une boucle `for`), puis appelle-la pour 3, 4 et 5.
 
+## 🏁 Défi à valider
+
+Écris une fonction `est_pair(n)` qui **renvoie** `True` si `n` est pair et `False` sinon (indice : `n % 2 == 0`). Puis exécute : le site la teste.
+
+```check
+assert "est_pair" in globals(), "Écris une fonction nommée est_pair."
+assert est_pair(4) is True, "est_pair(4) doit renvoyer True (utilise return)."
+assert est_pair(7) is False, "est_pair(7) doit renvoyer False."
+assert est_pair(0) is True, "0 est pair : est_pair(0) doit renvoyer True."
+```
+
 ```starter
 def saluer(prenom):
     print(f"Salut {prenom} !")

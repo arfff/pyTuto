@@ -89,6 +89,19 @@ Chaque leçon est un fichier **Markdown** (du texte simple avec quelques symbole
 
 Le site **découvre tout seul** les dossiers et les fichiers au moment de sa construction (`import.meta.glob` dans `src/lib/content.js`). Ajouter une leçon, c'est donc juste ajouter un fichier : il n'y a pas besoin de toucher au code du site. Les numéros devant les noms donnent l'ordre.
 
+## Comment les défis sont validés
+
+Certaines leçons se terminent par un **🏁 Défi à valider**. Quand tu exécutes ton programme, le site lance ensuite un petit **test** écrit par l'auteur de la leçon, et te dit « ✅ Bravo » ou te donne un indice.
+
+Dans le fichier de la leçon, le test est un bloc spécial ` ```check ` qui contient du code Python avec des `assert` (une vérification qui échoue si la condition est fausse, avec un message d'aide) :
+
+```
+assert "total" in globals(), "Crée une variable nommée total."
+assert total == 5050, "Ce n'est pas encore la bonne somme."
+```
+
+Le test s'exécute **dans le même espace que ton programme** : il peut donc lire tes variables, tes fonctions et même tout ce que ton programme a affiché (la variable `output`). Si tu veux, tu peux l'ouvrir dans le dossier `content/` pour voir comment une leçon est vérifiée... mais ce serait dommage de regarder la solution !
+
 ## Ta progression
 
 Il n'y a **pas de compte** et pas de serveur : ta progression (les leçons terminées et le code que tu as écrit dans chaque leçon) est enregistrée dans le **`localStorage`** de ton navigateur, une petite zone de stockage propre à chaque site.
@@ -122,7 +135,7 @@ Ouvre ensuite l'adresse affichée dans le terminal (en général `http://localho
 ## Les défauts actuels (et des idées)
 
 - Python est téléchargé depuis Internet : le site ne fonctionne pas hors connexion.
-- Il n'y a pas encore de vérification automatique des exercices.
+- Seuls quelques défis sont vérifiés automatiquement (ceux qui n'utilisent pas `input()` ni le dessin).
 - Une boucle pygame sans `await asyncio.sleep(0)` bloque la page.
 
-Des idées pour la suite : vérifier automatiquement les exercices, ajouter des images et des sons dans les jeux, créer de nouveaux modules (dictionnaires, un projet final...), ou même écrire tes propres leçons !
+Des idées pour la suite : ajouter des images et des sons dans les jeux, créer de nouveaux modules (programmation objet, fractales...), ou même écrire tes propres leçons !

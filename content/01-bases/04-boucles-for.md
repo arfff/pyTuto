@@ -49,6 +49,15 @@ for lettre in "Python":
 > 3. Affiche un compte à rebours de 10 à 1 (indice : `range(10, 0, -1)`), puis « Décollage ! ».
 > 4. Défi : calcule la somme de tous les nombres de 1 à 100 avec une variable `total`.
 
+## 🏁 Défi à valider
+
+Avec une boucle `for`, calcule dans une variable `total` la **somme de tous les nombres de 1 à 100**. Puis exécute : le site vérifie ta réponse.
+
+```check
+assert "total" in globals(), "Crée une variable nommée total."
+assert total == 5050, "Ce n'est pas encore la bonne somme. Vérifie le départ de range et ce que tu ajoutes."
+```
+
 ```starter
 nombre = 7
 
