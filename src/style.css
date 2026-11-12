@@ -44,7 +44,6 @@ a { color: var(--green-dark); }
 .card h2 { margin: 0 0 0.5rem; font-size: 1.2rem; }
 .card p { margin: 0 0 0.75rem; color: var(--muted); }
 .card small { color: var(--green-dark); }
-.dev-link { font-size: 0.9rem; color: var(--muted); }
 
 /* Page leçon : texte à gauche, éditeur + console à droite */
 .lesson-layout { display: grid; grid-template-columns: minmax(320px, 42%) 1fr; height: calc(100vh - var(--topbar-h)); }

@@ -21,6 +21,5 @@ const done = new Set(getDone())
         <small>{{ m.lessons.filter((l) => done.has(l.id)).length }} / {{ m.lessons.length }} leçons terminées</small>
       </RouterLink>
     </div>
-    <p class="dev-link"><RouterLink to="/test-pygame">🧪 Test technique pygame</RouterLink></p>
   </main>
 </template>
